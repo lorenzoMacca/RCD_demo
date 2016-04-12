@@ -26,13 +26,10 @@ public class TestService extends Thread{
 	@Override
 	public void run() {
 		super.run();
-		try {
-			
-			
-			out.println(in.readLine());
-			
-			
-			
+		try {			
+			String tmp = in.readLine();
+			System.out.println(tmp);
+			out.println(tmp);			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
