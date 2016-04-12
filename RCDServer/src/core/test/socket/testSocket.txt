@@ -1,0 +1,4 @@
+#testProtocol1
+1) send message to the server
+2) the server send the same message that receives from the client
+3) the client check if the message received from the server is the same which has been sent

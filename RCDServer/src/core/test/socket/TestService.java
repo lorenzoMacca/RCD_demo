@@ -35,8 +35,6 @@ public class TestService extends Thread{
 		}
 		
 	}
-	
-	
 
 
 }
