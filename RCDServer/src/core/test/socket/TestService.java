@@ -26,7 +26,7 @@ public class TestService extends Thread{
 	@Override
 	public void run() {
 		super.run();
-		try {			
+		try {
 			String tmp = in.readLine();
 			System.out.println(tmp);
 			out.println(tmp);			

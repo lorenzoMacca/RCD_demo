@@ -45,6 +45,12 @@ public class TestJavaClient extends Thread{
 		System.out.println("#TEST SOCKET JAVA CLIENT");
 		System.out.println("#######################################\n");
 		
+		String messageCode = "SC0";
+		out.println(messageCode);
+		
+		String recv_data_code = in.readLine();
+		System.out.println(recv_data_code);
+		
 		String message = "####!!01ab CD23!!####";
 		out.println(message);
 		

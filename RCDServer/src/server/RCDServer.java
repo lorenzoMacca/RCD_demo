@@ -3,8 +3,7 @@ package server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import core.test.socket.TestService;
+import server.service.ServiceDispatcher;
 
 public class RCDServer extends Thread{
 	
@@ -18,23 +17,15 @@ public class RCDServer extends Thread{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	@Override
 	public void run() {
 		super.run();
-		
 		while(true){
 			try {
-				
-				
 				Socket incoming = this.serverSocket.accept();
-				
-				
-				new TestService(incoming).start();
-				
-				
+				new ServiceDispatcher(incoming).start();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
