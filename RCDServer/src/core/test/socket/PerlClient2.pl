@@ -19,8 +19,6 @@ or die "Couldn't connect to Server\n";
 #define the test message which has to be sent to the server
 my $serviceCode = "SC0\n";
 my $testMessage = "####!!01ab CD23!!####\n";
-my $dimMessage = 21;
-my $dimMessageCode = 24;
 #define var to catch the message
 my $recv_data;
 
@@ -36,15 +34,17 @@ my $recv_data_test;
 $socket->send(encode_utf8($testMessage));
 
 $recv_data_test = <$socket>;
-chomp($recv_data_test);
 chomp($testMessage);
+chomp($recv_data_test);
 
-if( $recv_data_test eq $testMessage ){
+my $tmp = substr($testMessage,0,22);
+
+if( $testMessage eq $tmp ){
 	print "[OK] - test protocol 1\n";
 }else{
 	print "[NOK] - test protocol 1 \n";
 	print "***$testMessage***\n";
-	print "---$recv_data_test---\n";
+	print "---$tmp---\n";
 }
 
 print "\n\n#######################################\n";

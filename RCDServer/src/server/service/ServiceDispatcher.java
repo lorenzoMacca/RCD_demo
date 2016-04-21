@@ -14,7 +14,8 @@ public class ServiceDispatcher extends Thread {
 	private BufferedReader in;
 	private PrintWriter out;
 	
-	private final static String TEST_SERVICE_CODE_TEST = "SC0";
+	private final static String TEST_SERVICE_CODE_TEST  = "SC0";
+	private final static String SERVICE_CODE_CONTROLLER = "SC1";
 
 	public ServiceDispatcher(Socket incoming) {
 		this.incoming = incoming;
@@ -29,6 +30,8 @@ public class ServiceDispatcher extends Thread {
 	private Thread getService(String serviceCode) {
 		if(serviceCode.equals(ServiceDispatcher.TEST_SERVICE_CODE_TEST)){
 			return new TestService(this.incoming);
+		}else if(serviceCode.equals(ServiceDispatcher.SERVICE_CODE_CONTROLLER)){
+			
 		}
 		return null;
 	}
