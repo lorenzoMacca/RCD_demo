@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import core.data.RCDData;
 import core.test.socket.TestService;
 
 public class ServiceDispatcher extends Thread {
@@ -31,7 +32,9 @@ public class ServiceDispatcher extends Thread {
 		if(serviceCode.equals(ServiceDispatcher.TEST_SERVICE_CODE_TEST)){
 			return new TestService(this.incoming);
 		}else if(serviceCode.equals(ServiceDispatcher.SERVICE_CODE_CONTROLLER)){
-			
+			this.out.println(serviceCode);
+			RCDData.getInstance().getController().initializeController(this.incoming.getInetAddress().getHostAddress(), this.incoming.getPort(), true);
+			return new ControllerService(incoming);
 		}
 		return null;
 	}
@@ -42,7 +45,7 @@ public class ServiceDispatcher extends Thread {
 			String serviceCode = in.readLine();
 			Thread service = this.getService(serviceCode);
 			if(service != null){
-				out.println(ServiceDispatcher.TEST_SERVICE_CODE_TEST);
+				System.out.println(serviceCode);
 				service.start();
 			}
 		} catch (IOException e) {

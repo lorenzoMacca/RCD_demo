@@ -32,12 +32,28 @@ public class TestJavaClient extends Thread{
 		super.run();
 		try {
 
-			this.testProtocol1();
-
+			//this.testProtocol1();
+			testProtocol2();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
+	}
+	
+	private void testProtocol2() throws IOException{
+		System.out.println("#######################################");
+		System.out.println("#TEST INI CONTROLLER");
+		System.out.println("#######################################\n");
+		
+		String messageCode = "SC1";
+		out.println(messageCode);
+		String recv_data_code = in.readLine();
+		System.out.println(recv_data_code);
+		
+		System.out.println("\n#######################################");
+		System.out.println("#END TEST INI CONTROLLER");
+		System.out.println("#######################################");
 	}
 	
 	private void testProtocol1() throws IOException{
