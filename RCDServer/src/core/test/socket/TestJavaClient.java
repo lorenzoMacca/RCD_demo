@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import server.service.ServiceDispatcher;
+
 public class TestJavaClient extends Thread{
 
 	private String ip = "127.0.0.1";
@@ -16,6 +18,7 @@ public class TestJavaClient extends Thread{
 
 	public TestJavaClient() {
 		try {
+			this.setName("TestJavaClient");
 			this.socket = new Socket(ip, port);
 			this.out = new PrintWriter(socket.getOutputStream(),true);
 			this.in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
@@ -37,11 +40,14 @@ public class TestJavaClient extends Thread{
 			
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
 	
-	private void testProtocol2() throws IOException{
+	private void testProtocol2() throws IOException, InterruptedException{
 		System.out.println("#######################################");
 		System.out.println("#TEST INI CONTROLLER");
 		System.out.println("#######################################\n");
@@ -51,9 +57,22 @@ public class TestJavaClient extends Thread{
 		String recv_data_code = in.readLine();
 		System.out.println(recv_data_code);
 		
-		System.out.println("\n#######################################");
+		while(true){
+			
+			String request = this.in.readLine();
+			if(request != null){
+				if(request.equals(ServiceDispatcher.SERVICE_CODE_CONTROLLER)){
+					System.out.println("Dear Server, yes, I am still alive");
+					this.out.println(request);
+				}
+			}
+			
+			sleep(2000);
+		}
+		
+		/*System.out.println("\n#######################################");
 		System.out.println("#END TEST INI CONTROLLER");
-		System.out.println("#######################################");
+		System.out.println("#######################################");*/
 	}
 	
 	private void testProtocol1() throws IOException{

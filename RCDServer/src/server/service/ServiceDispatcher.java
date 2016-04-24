@@ -16,7 +16,7 @@ public class ServiceDispatcher extends Thread {
 	private PrintWriter out;
 	
 	private final static String TEST_SERVICE_CODE_TEST  = "SC0";
-	private final static String SERVICE_CODE_CONTROLLER = "SC1";
+	public  final static String SERVICE_CODE_CONTROLLER = "SC1";
 
 	public ServiceDispatcher(Socket incoming) {
 		this.incoming = incoming;
