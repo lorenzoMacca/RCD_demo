@@ -17,6 +17,7 @@ public class ServiceDispatcher extends Thread {
 	
 	private final static String TEST_SERVICE_CODE_TEST  = "SC0";
 	public  final static String SERVICE_CODE_CONTROLLER = "SC1";
+	public  final static String SERVICE_CODE_AUTO       = "SC2";
 
 	public ServiceDispatcher(Socket incoming) {
 		this.incoming = incoming;
@@ -35,6 +36,8 @@ public class ServiceDispatcher extends Thread {
 			this.out.println(serviceCode);
 			RCDData.getInstance().getController().initializeController(this.incoming.getInetAddress().getHostAddress(), this.incoming.getPort(), true);
 			return new ControllerService(incoming);
+		}else if(serviceCode.equals(ServiceDispatcher.SERVICE_CODE_AUTO)){
+			this.out.println(serviceCode);
 		}
 		return null;
 	}
