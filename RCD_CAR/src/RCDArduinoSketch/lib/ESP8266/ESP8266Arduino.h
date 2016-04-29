@@ -23,7 +23,7 @@ class ESP8266Arduino{
 	public:
 		ESP8266Arduino(Stream *serial);
 		~ESP8266Arduino();
-		void testConnection();
+		bool testConnection();
 };
 
 #endif

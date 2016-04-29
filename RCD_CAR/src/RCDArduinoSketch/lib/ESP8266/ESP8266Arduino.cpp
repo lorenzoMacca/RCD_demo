@@ -7,9 +7,10 @@ ESP8266Arduino::ESP8266Arduino(Stream *serial){
 ESP8266Arduino::~ESP8266Arduino(){
 }
 
-void ESP8266Arduino::testConnection(){
-	clearBuffer();
-	write("AT");
+bool ESP8266Arduino::testConnection(){
+	/*clearBuffer();
+	write("AT");*/
+	return true;
 }
 
 void ESP8266Arduino::clearBuffer() {
