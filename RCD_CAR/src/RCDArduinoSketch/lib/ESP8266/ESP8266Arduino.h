@@ -1,6 +1,7 @@
 #ifndef _ESP8266ARDUINO_H_
 #define _ESP8266ARDUINO_H_
 
+#include <SoftwareSerial.h>
 /*
 * The following libs are needed to use:
 * - Stream
@@ -14,14 +15,14 @@
 class ESP8266Arduino{
 
 	private:
-		Stream *serial;
-		void clearBuffer();
-		int available();
-		void write(String str);
-		void flush();
+		SoftwareSerial *serial;
+		Stream *serialDebug;
+		bool isDebugEnabled;
+		void debugMessage(String s);
 	
 	public:
-		ESP8266Arduino(Stream *serial);
+		ESP8266Arduino(SoftwareSerial *serial);
+		ESP8266Arduino(SoftwareSerial *serial, Stream *serialDebug);
 		~ESP8266Arduino();
 		bool testConnection();
 };
