@@ -11,10 +11,9 @@ void setup() {
 	pinMode(RX_PIN, INPUT);
 	pinMode(TX_PIN, OUTPUT);
   esp8266Serial.begin(115200);
-	esp8266 = new ESP8266Arduino(&esp8266Serial);
-
-	//define serial monitor for debugging
 	Serial.begin(115200);
+	esp8266 = new ESP8266Arduino(&esp8266Serial, &Serial);
+	
 	while (!Serial) {
 		; // wait for serial port to connect. Needed for native USB port only
 	}
