@@ -21,6 +21,7 @@ class ESP8266Arduino{
 		void debugMessage(String s);
         void clean();
         String* cleanString(String *s);
+		bool find(String *s, String *occ);
 	
 	public:
 		ESP8266Arduino(SoftwareSerial *serial);
