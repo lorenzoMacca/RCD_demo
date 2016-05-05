@@ -20,6 +20,7 @@ class ESP8266Arduino{
 		bool isDebugEnabled;
 		void debugMessage(String s);
         void clean();
+        String* cleanString(String *s);
 	
 	public:
 		ESP8266Arduino(SoftwareSerial *serial);
