@@ -6,6 +6,8 @@
 
 ESP8266Arduino *esp8266;
 SoftwareSerial esp8266Serial(RX_PIN, TX_PIN); // RX, TX
+String ssid = "";
+String pass = "";
 
 void setup() {
 	pinMode(RX_PIN, INPUT);
@@ -20,6 +22,11 @@ void setup() {
 
 	//test connection
 	bool isConnected = esp8266->testConnection();
+
+  //connect to wif
+  if(isConnected){
+     esp8266->connectToWifi(&ssid, &pass);
+  }
 }
 
 void loop() {
