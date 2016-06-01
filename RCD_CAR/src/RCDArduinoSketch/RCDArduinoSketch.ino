@@ -13,7 +13,7 @@ void setup() {
 	pinMode(RX_PIN, INPUT);
 	pinMode(TX_PIN, OUTPUT);
   esp8266Serial.begin(115200);
-	Serial.begin(115200);
+	Serial.begin(9600);
 	esp8266 = new ESP8266Arduino(&esp8266Serial, &Serial);
 	
 	while (!Serial) {
@@ -26,7 +26,7 @@ void setup() {
   //connect to wif
   if(isConnected){
      esp8266->connectToWifi(&ssid, &pass);
-  }
+  } 
 }
 
 void loop() {

@@ -22,7 +22,7 @@ class ESP8266Arduino{
         void clean();
         String* cleanString(String *s);
 		bool find(String *s, String *occ);
-		bool sendAndreciveMessage(String *request, String *neededResponse, String *testName);
+		bool sendAndreciveMessage(String *request, String *neededResponse, String *testName, bool iWannaMoreInfo=false);
 	
 	public:
 		ESP8266Arduino(SoftwareSerial *serial);
@@ -30,6 +30,7 @@ class ESP8266Arduino{
 		~ESP8266Arduino();
 		bool testConnection();
 		bool connectToWifi(String *ssid, String *pass);
+		bool quitConnection();
 };
 
 #endif
