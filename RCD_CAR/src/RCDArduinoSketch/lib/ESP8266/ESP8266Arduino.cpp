@@ -23,21 +23,28 @@ bool ESP8266Arduino::testConnection(){
 }
 
 
-bool ESP8266Arduino::sendAndreciveMessage(String *request, String *neededResponse, String *testName, bool iWannaMoreInfo){
+bool ESP8266Arduino::sendAndreciveMessage(String *request, String *neededResponse, String *testName, bool iWannaMoreInfo, const int timeout){
 	this->debugMessage(*testName);
     this->clean();
     this->serial->println(*request);
-    String response = this->serial->readString();
+
+	long int time = millis();
+	String response = "";
+	while( (time+timeout) > millis() ){
+		while( this->serial->available() ){
+			response += this->serial->readString();
+		}
+	}
     response.trim();
 	if(iWannaMoreInfo){
 		this->debugMessage(response);
-		this->debugMessage(*neededResponse);
+		//this->debugMessage(*neededResponse);
 	}
 	if(this->find(&response, neededResponse)){
         this->debugMessage("OK");
         return true;
     }else{
-        this->debugMessage("fuck...");
+        this->debugMessage(response);
         return false;
     }
 }
@@ -85,24 +92,35 @@ String* ESP8266Arduino::cleanString(String *s){
 }
 
 bool ESP8266Arduino::connectToWifi(String *ssid, String *pass){
-	String message = "AT+CWMODE?";
-	String neededResponse = "+CWMODE:0";
-	String testName = "Set module in station mode";
-	bool isModuleInStationModeSet = this->sendAndreciveMessage(&message, &neededResponse, &testName);
+	bool isModuleInStationModeSet = this->setModeClient();
 	if(isModuleInStationModeSet){
 		//quitConnection();
-		message = "AT+CWJAP=\"KDG-C1CFE\",\"F0Ey03x0YQU3\"";
-		neededResponse = "WIFI CONNECTED";
-		testName = "Connect to wifi";
-		return this->sendAndreciveMessage(&message, &neededResponse, &testName, true);
+		String message = "AT+CWJAP=\"KDG-C1CFE\",\"F0Ey03x0YQU3\"";
+		String neededResponse = "WIFI CONNECTED";
+		String testName = "Connect to wifi";
+		return this->sendAndreciveMessage(&message, &neededResponse, &testName, false, 4000);
 	}
 	return false;
+}
+
+bool ESP8266Arduino::setModeClient(){
+	String message = "AT+CWMODE=1";
+	String neededResponse = "OK";
+	String testName = "Set module in client mode";
+	return this->sendAndreciveMessage(&message, &neededResponse, &testName);
 }
 
 bool ESP8266Arduino::quitConnection(){
 	String message = "AT+CWQAP";
 	String neededResponse = "OK";
 	String testName = "Quit connection";
-	return this->sendAndreciveMessage(&message, &neededResponse, &testName, true);
+	return this->sendAndreciveMessage(&message, &neededResponse, &testName);
+}
+
+bool ESP8266Arduino::getIpAddress(){
+	String message = "AT+CIFSR";
+	String neededResponse = "OK";
+	String testName = "Get ip address";
+	return this->sendAndreciveMessage(&message, &neededResponse, &testName, true, 10000);
 }
 

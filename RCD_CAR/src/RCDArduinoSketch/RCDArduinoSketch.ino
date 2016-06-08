@@ -25,7 +25,9 @@ void setup() {
 
   //connect to wif
   if(isConnected){
-     esp8266->connectToWifi(&ssid, &pass);
+    esp8266->connectToWifi(&ssid, &pass);
+    //esp8266->getIpAddress();
+    esp8266->quitConnection();
   } 
 }
 
