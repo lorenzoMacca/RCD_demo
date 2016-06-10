@@ -33,6 +33,7 @@ class ESP8266Arduino{
 		bool connectToWifi(String *ssid, String *pass);
 		bool quitConnection();
 		bool getIpAddress();
+		bool cipmux(String *ip, String *port);
 };
 
 #endif

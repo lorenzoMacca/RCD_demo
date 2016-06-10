@@ -127,6 +127,19 @@ bool ESP8266Arduino::getIpAddress(){
 	String message = "AT+CIFSR";
 	String neededResponse = "OK";
 	String testName = "Get ip address";
-	return this->sendAndreciveMessage(&message, &neededResponse, &testName, true, 10000);
+	return this->sendAndreciveMessage(&message, &neededResponse, &testName, true, 3000);
+}
+
+bool ESP8266Arduino::cipmux(String *ip, String *port){
+	String message = "AT+CIPMUX=";
+	message += "\"TCP\",\"";
+	message += *ip;
+	message += "\",";
+	message += *port;
+	String neededResponse = "OK";
+	String testName = "connect to ";
+	testName += *ip;
+	testName += *port;
+	return this->sendAndreciveMessage(&message, &neededResponse, &testName, true, 3000);	
 }
 

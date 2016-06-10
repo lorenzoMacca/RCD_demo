@@ -8,6 +8,8 @@ ESP8266Arduino *esp8266;
 SoftwareSerial esp8266Serial(RX_PIN, TX_PIN); // RX, TX
 String ssid = "KDG-C1CFE";
 String pass = "F0Ey03x0YQU3";
+String ip = "192.168.0.39";
+String port = "9090";
 
 void setup() {
 	pinMode(RX_PIN, INPUT);
@@ -26,7 +28,9 @@ void setup() {
   //connect to wif
   if(isConnected){
     esp8266->connectToWifi(&ssid, &pass);
-    //esp8266->getIpAddress();
+    delay(300);
+    esp8266->cipmux(&ip, &port);
+    delay(300);
     esp8266->quitConnection();
   } 
 }
